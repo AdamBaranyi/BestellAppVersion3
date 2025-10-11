@@ -4,14 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BestellApp</title>
-  
-<link rel="icon" href="assets/img/logo.png" />
-<link rel="stylesheet" href="styles.css" />
-   
+
+  <link rel="icon" href="assets/img/logo.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-
+  
   <header class="header">
     <div class="brand">
       <img src="assets/img/logo.png" alt="BestellApp Logo" class="brand__logo" />
@@ -20,10 +19,17 @@
     <button class="header__burger" aria-label="Menü öffnen">☰</button>
   </header>
 
- 
+  
   <section class="hero">
     <img src="assets/img/foodbanner.png" alt="Food Banner" class="hero__image" />
-    <div class="hero__overlay">
+
+    
+    <div class="hero__badge">
+      <img src="assets/img/logo.png" alt="Italien Paradise Logo">
+    </div>
+
+  
+    <div class="container hero__overlay">
       <h1 class="hero__title">Italien Paradise</h1>
       <p class="hero__rating">★ ★ ★ ★ ☆ (4.2 von 5)</p>
       <p class="hero__info">Lieferkosten: CHF 5.00 · Lieferzeit: 30–45 min</p>
@@ -31,7 +37,7 @@
     </div>
   </section>
 
-  
+ 
   <nav class="categories">
     <ul>
       <li><a href="#section-salate" class="chip chip--active">Salate</a></li>
@@ -41,8 +47,9 @@
     </ul>
   </nav>
 
-  <main class="layout">
    
+  <main class="layout">
+    
     <section class="menu" data-menu>
       <h2 id="section-salate">Salate</h2>
       <div class="menu__grid" data-menu-grid="Salate"></div>
@@ -51,36 +58,38 @@
       <div class="menu__grid" data-menu-grid="Suppe"></div>
 
       <h2 id="section-pizza">Pizza</h2>
-      <div class="menu__grid" data-menu-grid="Pizza">
-        
-      </div>
+      <div class="menu__grid" data-menu-grid="Pizza"></div>
 
       <h2 id="section-dessert">Dessert</h2>
       <div class="menu__grid" data-menu-grid="Dessert"></div>
     </section>
 
-   
+    
     <aside class="cart" data-cart>
-      <h2>Warenkorb</h2>
-      <div class="cart__items" data-cart-items>
-        <p class="cart__empty">Dein Warenkorb ist leer.</p>
+      
+      <div class="cart-inner">
+        <h2>Warenkorb</h2>
+        <div class="cart__items" data-cart-items>
+          <p class="cart__empty">Dein Warenkorb ist leer.</p>
+        </div>
+        <div class="cart__summary">
+          <div class="row"><span>Zwischensumme </span><strong data-subtotal>CHF 0.00</strong></div>
+          <div class="row"><span>Lieferkosten </span><strong data-shipping>CHF 5.00</strong></div>
+          <hr>
+          <div class="row row--lg"><span>Gesamt </span><strong data-total>CHF 0.00</strong></div>
+        </div>
+        <button class="btn btn--primary" data-checkout>Zur Kasse</button>
+        <p class="cart__notice" data-order-message></p>
       </div>
-      <div class="cart__summary">
-        <div class="row"><span>Zwischensumme </span><strong data-subtotal>CHF 0.00</strong></div>
-        <div class="row"><span>Lieferkosten </span><strong data-shipping>CHF 5.00</strong></div>
-        <hr>
-        <div class="row row--lg"><span>Gesamt </span><strong data-total>CHF 0.00</strong></div>
-      </div>
-      <button class="btn btn--primary" data-checkout>Zur Kasse</button>
-      <p class="cart__notice" data-order-message></p>
     </aside>
   </main>
 
-  
+ 
   <button class="fab" data-open-cart>
     Warenkorb • <span data-total-mini>CHF 0.00</span>
   </button>
 
+ 
   <dialog class="cart-dialog" data-cart-dialog>
     <form method="dialog">
       <h3>Warenkorb</h3>
