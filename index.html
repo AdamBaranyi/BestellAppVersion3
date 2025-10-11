@@ -1,119 +1,131 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BestellApp</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BestellApp</title>
 
-  <link rel="icon" href="assets/img/logo.png" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
- 
-  <header class="header">
-    <div class="brand">
-      <img src="assets/img/logo.png" alt="BestellApp Logo" class="brand__logo" />
-      <span class="brand__name">BestellApp</span>
-    </div>
-    <button class="header__burger" aria-label="Menü öffnen">☰</button>
-  </header>
-
-  
-  <section class="hero">
-    <img src="assets/img/foodbanner.png" alt="Food Banner" class="hero__image" />
-
- 
-    <div class="container hero__overlay hero__row">
-      <div class="hero__badge">
-        <img src="assets/img/logo.png" alt="Italien Paradise Logo">
+    <link rel="icon" href="assets/img/logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <img
+          src="assets/img/logo.png"
+          alt="BestellApp Logo"
+          class="brand__logo"
+        />
+        <span class="brand__name">BestellApp</span>
       </div>
+      <button class="header__burger" aria-label="Menü öffnen">☰</button>
+    </header>
 
-      <div class="hero__meta">
-        <h1 class="hero__title">Italien Paradise</h1>
-        <p class="hero__rating">★ ★ ★ ★ ☆ (4.2 von 5)</p>
-        <p class="hero__info">Lieferkosten: CHF 5.00 · Lieferzeit: 30–45 min</p>
-        <p class="hero__desc">Frisch. Schnell. Lecker.</p>
+    <section class="hero">
+      <img
+        src="assets/img/foodbanner.png"
+        alt="Food Banner"
+        class="hero__image"
+      />
+
+      <div class="container hero__overlay hero__row">
+        <div class="hero__badge">
+          <img src="assets/img/logo.png" alt="Italien Paradise Logo" />
+        </div>
+
+        <div class="hero__meta">
+          <h1 class="hero__title">Italien Paradise</h1>
+          <p class="hero__rating">★ ★ ★ ★ ☆ (4.2 von 5)</p>
+          <p class="hero__info">
+            Lieferkosten: CHF 5.00 · Lieferzeit: 30–45 min
+          </p>
+          <p class="hero__desc">Frisch. Schnell. Lecker.</p>
+        </div>
       </div>
-    </div>
-  </section>
-
- 
-  <nav class="categories">
-    <ul>
-      <li><a href="#section-salate" class="chip chip--active">Salate</a></li>
-      <li><a href="#section-suppe" class="chip">Suppe</a></li>
-      <li><a href="#section-pizza" class="chip">Pizza</a></li>
-      <li><a href="#section-dessert" class="chip">Dessert</a></li>
-    </ul>
-  </nav>
-
- 
-  <main class="layout">
-    
-    <section class="menu" data-menu>
-      <h2 id="section-salate">Salate</h2>
-      <div class="menu__grid" data-menu-grid="Salate"></div>
-
-      <h2 id="section-suppe">Suppe</h2>
-      <div class="menu__grid" data-menu-grid="Suppe"></div>
-
-      <h2 id="section-pizza">Pizza</h2>
-      <div class="menu__grid" data-menu-grid="Pizza"></div>
-
-      <h2 id="section-dessert">Dessert</h2>
-      <div class="menu__grid" data-menu-grid="Dessert"></div>
     </section>
 
-    
-    <aside class="cart" data-cart>
-     
-      <div class="cart-inner">
-        <h2>Warenkorb</h2>
-        <div class="cart__items" data-cart-items>
-          <p class="cart__empty">Dein Warenkorb ist leer.</p>
+    <nav class="categories">
+      <ul>
+        <li><a href="#section-salate" class="chip chip--active">Salate</a></li>
+        <li><a href="#section-suppe" class="chip">Suppe</a></li>
+        <li><a href="#section-pizza" class="chip">Pizza</a></li>
+        <li><a href="#section-dessert" class="chip">Dessert</a></li>
+      </ul>
+    </nav>
+
+    <main class="layout">
+      <section class="menu" data-menu>
+        <h2 id="section-salate">Salate</h2>
+        <div class="menu__grid" data-menu-grid="Salate"></div>
+
+        <h2 id="section-suppe">Suppe</h2>
+        <div class="menu__grid" data-menu-grid="Suppe"></div>
+
+        <h2 id="section-pizza">Pizza</h2>
+        <div class="menu__grid" data-menu-grid="Pizza"></div>
+
+        <h2 id="section-dessert">Dessert</h2>
+        <div class="menu__grid" data-menu-grid="Dessert"></div>
+      </section>
+
+      <aside class="cart" data-cart>
+        <div class="cart-inner">
+          <h2>Warenkorb</h2>
+          <div class="cart__items" data-cart-items>
+            <p class="cart__empty">Dein Warenkorb ist leer.</p>
+          </div>
+          <div class="cart__summary">
+            <div class="row">
+              <span>Zwischensumme </span><strong data-subtotal>CHF 0.00</strong>
+            </div>
+            <div class="row">
+              <span>Lieferkosten </span><strong data-shipping>CHF 5.00</strong>
+            </div>
+            <hr />
+            <div class="row row--lg">
+              <span>Gesamt </span><strong data-total>CHF 0.00</strong>
+            </div>
+          </div>
+          <button class="btn btn--primary" data-checkout>Zur Kasse</button>
+          <p class="cart__notice" data-order-message></p>
         </div>
-        <div class="cart__summary">
-          <div class="row"><span>Zwischensumme </span><strong data-subtotal>CHF 0.00</strong></div>
-          <div class="row"><span>Lieferkosten </span><strong data-shipping>CHF 5.00</strong></div>
-          <hr>
-          <div class="row row--lg"><span>Gesamt </span><strong data-total>CHF 0.00</strong></div>
+      </aside>
+    </main>
+
+    <button class="fab" data-open-cart>
+      Warenkorb • <span data-total-mini>CHF 0.00</span>
+    </button>
+
+    <!-- Responsive Warenkorb -->
+    <dialog class="cart-dialog" data-cart-dialog>
+      <form method="dialog">
+        <h3>Warenkorb</h3>
+        <button aria-label="Schließen">✕</button>
+      </form>
+      <div class="cart__items" data-cart-items-mobile></div>
+      <div class="cart__summary">
+        <div class="row">
+          <span>Zwischensumme</span
+          ><strong data-subtotal-mobile>CHF 0.00</strong>
         </div>
-        <button class="btn btn--primary" data-checkout>Zur Kasse</button>
-        <p class="cart__notice" data-order-message></p>
+        <div class="row">
+          <span>Lieferkosten</span
+          ><strong data-shipping-mobile>CHF 5.00</strong>
+        </div>
+        <hr />
+        <div class="row row--lg">
+          <span>Gesamt</span><strong data-total-mobile>CHF 0.00</strong>
+        </div>
       </div>
-    </aside>
-  </main>
+      <button class="btn btn--primary" data-checkout-mobile>Bestellen</button>
+      <p class="cart__notice" data-order-message-mobile></p>
+    </dialog>
 
-  
-  <button class="fab" data-open-cart>
-    Warenkorb • <span data-total-mini>CHF 0.00</span>
-  </button>
+    <footer class="footer">
+      <small>&copy; <span id="year"></span> BestellApp 2025</small>
+    </footer>
 
-  <!-- Responsive Warenkorb -->
-  <dialog class="cart-dialog" data-cart-dialog>
-    <form method="dialog">
-      <h3>Warenkorb</h3>
-      <button aria-label="Schließen">✕</button>
-    </form>
-    <div class="cart__items" data-cart-items-mobile></div>
-    <div class="cart__summary">
-      <div class="row"><span>Zwischensumme</span><strong data-subtotal-mobile>CHF 0.00</strong></div>
-      <div class="row"><span>Lieferkosten</span><strong data-shipping-mobile>CHF 5.00</strong></div>
-      <hr>
-      <div class="row row--lg"><span>Gesamt</span><strong data-total-mobile>CHF 0.00</strong></div>
-    </div>
-    <button class="btn btn--primary" data-checkout-mobile>Bestellen</button>
-    <p class="cart__notice" data-order-message-mobile></p>
-  </dialog>
-
- 
-  <footer class="footer">
-    <small>&copy; <span id="year"></span> BestellApp 2025</small>
-  </footer>
-
- 
-  <script src="/data/menu.js" defer></script>
-  <script src="script.js" defer></script>
-</body>
+    <script src="/data/menu.js" defer></script>
+    <script src="script.js" defer></script>
+  </body>
 </html>

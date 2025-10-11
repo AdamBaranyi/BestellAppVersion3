@@ -1,89 +1,114 @@
-//  Warenkorb-Logik 
+//  Warenkorb-Logik
 document.addEventListener("DOMContentLoaded", function () {
+  // Fixe Lieferkosten
+  const shippingCost = 5.0;
 
-  // Fixe Lieferkosten 
-  let shippingCost = 5.0;
-
-  // Karten aus menuData rendern 
+  // Menü-Karten rendern menu.js
   menuData.forEach(function (menuItem) {
-    let cardHTML = `
-      <article class="card">
-        <h3>${menuItem.name}</h3>
-        <p>${menuItem.desc}</p>
-        <div class="card__bottom">
-          <span class="price">CHF ${menuItem.price.toFixed(2)}</span>
-          <button class="plus-btn" data-add="${menuItem.id}">+</button>
-        </div>
-      </article>
-    `;
+    const cardHTML =
+      '<article class="card">' +
+      "<h3>" +
+      menuItem.name +
+      "</h3>" +
+      "<p>" +
+      menuItem.desc +
+      "</p>" +
+      '<div class="card__bottom">' +
+      '<span class="price">CHF ' +
+      menuItem.price.toFixed(2) +
+      "</span>" +
+      '<button class="plus-btn" data-add="' +
+      menuItem.id +
+      '">+</button>' +
+      "</div>" +
+      "</article>";
 
-    let gridContainer = document.querySelector(`[data-menu-grid="${menuItem.category}"]`);
-    if (gridContainer) {
-      gridContainer.innerHTML += cardHTML;
-    }
+    const gridContainer = document.querySelector(
+      '[data-menu-grid="' + menuItem.category + '"]'
+    );
+    if (gridContainer) gridContainer.innerHTML += cardHTML;
   });
 
-  // Warenkorb-Daten 
+  // Warenkorb-Daten
   let cart = [];
 
-  // Artikel hinzufügen 
+  // Hilfsfunktionen
+  function findMenuItemById(itemId) {
+    for (let i = 0; i < menuData.length; i++) {
+      if (menuData[i].id === itemId) return menuData[i];
+    }
+    return null;
+  }
+
+  function findCartItem(itemId) {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === itemId) return cart[i];
+    }
+    return null;
+  }
+
+  // Artikel hinzufügen
   function addToCart(itemId) {
-    let existingCartItem = cart.find(function (cartItem) {
-      return cartItem.id === itemId;
-    });
-
-    if (existingCartItem) {
-      existingCartItem.qty += 1;
+    const existing = findCartItem(itemId);
+    if (existing) {
+      existing.qty += 1;
     } else {
-      let menuItem = menuData.find(function (menuItem) {
-        return menuItem.id === itemId;
-      });
-      if (!menuItem) return;
-
-      cart.push({ 
-        id: menuItem.id, 
-        name: menuItem.name, 
-        price: menuItem.price, 
-        qty: 1 
-      });
+      const m = findMenuItemById(itemId);
+      if (!m) return;
+      cart.push({ id: m.id, name: m.name, price: m.price, qty: 1 });
     }
     renderCart();
+    renderMobileCart();
   }
 
-  // Menge ändern (+1 oder -1)
+  // Menge ändern (+/-)
   function changeQuantity(itemId, change) {
-    let cartItem = cart.find(function (cartItem) {
-      return cartItem.id === itemId;
-    });
-
-    if (!cartItem) return;
-
-    cartItem.qty += change;
-    if (cartItem.qty <= 0) {
-      cart = cart.filter(function (cartItem) {
-        return cartItem.id !== itemId;
-      });
+    const it = findCartItem(itemId);
+    if (!it) return;
+    it.qty += change;
+    if (it.qty <= 0) {
+      const next = [];
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id !== itemId) next.push(cart[i]);
+      }
+      cart = next;
     }
     renderCart();
+    renderMobileCart();
   }
 
-  // Artikel komplett entfernen 
+  // Artikel komplett entfernen
   function removeFromCart(itemId) {
-    cart = cart.filter(function (cartItem) {
-      return cartItem.id !== itemId;
-    });
+    const next = [];
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id !== itemId) next.push(cart[i]);
+    }
+    cart = next;
     renderCart();
+    renderMobileCart();
   }
 
-  // Warenkorb anzeigen
+  // Summe berechnen
+  function calcSubtotal() {
+    let s = 0;
+    for (let i = 0; i < cart.length; i++) {
+      s += cart[i].price * cart[i].qty;
+    }
+    return s;
+  }
+
+  // Warenkorb Desktop rendern
   function renderCart() {
-    let cartItemsBox = document.querySelector("[data-cart-items]");
-    let subtotalElement = document.querySelector("[data-subtotal]");
-    let totalElement = document.querySelector("[data-total]");
-    let miniTotalElement = document.querySelector("[data-total-mini]");
+    const cartItemsBox = document.querySelector("[data-cart-items]");
+    const subtotalElement = document.querySelector("[data-subtotal]");
+    const totalElement = document.querySelector("[data-total]");
+    const miniTotalElement = document.querySelector("[data-total-mini]");
+
+    if (!cartItemsBox || !subtotalElement || !totalElement) return;
 
     if (cart.length === 0) {
-      cartItemsBox.innerHTML = `<p class="cart__empty">Dein Warenkorb ist leer.</p>`;
+      cartItemsBox.innerHTML =
+        '<p class="cart__empty">Dein Warenkorb ist leer.</p>';
       subtotalElement.textContent = "CHF 0.00";
       totalElement.textContent = "CHF 0.00";
       if (miniTotalElement) miniTotalElement.textContent = "CHF 0.00";
@@ -93,62 +118,130 @@ document.addEventListener("DOMContentLoaded", function () {
     let html = "";
     let subtotal = 0;
 
-    cart.forEach(function (cartItem) {
-      let linePrice = cartItem.price * cartItem.qty;
-      subtotal += linePrice;
+    for (let i = 0; i < cart.length; i++) {
+      const it = cart[i];
+      const line = it.price * it.qty;
+      subtotal += line;
 
-      html += `
-        <div class="cart__item">
-          <div>${cartItem.name}</div>
-          <div style="text-align:right;">CHF ${linePrice.toFixed(2)}</div>
-          <div class="qty">
-            <button class="qty-btn" data-dec="${cartItem.id}">−</button>
-            <span>${cartItem.qty}</span>
-            <button class="qty-btn" data-inc="${cartItem.id}">+</button>
-          </div>
-          <div style="text-align:right;">
-            <button class="qty-del" data-del="${cartItem.id}">entfernen</button>
-          </div>
-        </div>
-      `;
-    });
+      html +=
+        "" +
+        '<div class="cart__item">' +
+        "<div>" +
+        it.name +
+        "</div>" +
+        '<div style="text-align:right;">CHF ' +
+        line.toFixed(2) +
+        "</div>" +
+        '<div class="qty">' +
+        '<button class="qty-btn" data-dec="' +
+        it.id +
+        '">−</button>' +
+        "<span>" +
+        it.qty +
+        "</span>" +
+        '<button class="qty-btn" data-inc="' +
+        it.id +
+        '">+</button>' +
+        "</div>" +
+        '<div style="text-align:right;">' +
+        '<button class="qty-del" data-del="' +
+        it.id +
+        '">entfernen</button>' +
+        "</div>" +
+        "</div>";
+    }
 
     cartItemsBox.innerHTML = html;
     subtotalElement.textContent = "CHF " + subtotal.toFixed(2);
     totalElement.textContent = "CHF " + (subtotal + shippingCost).toFixed(2);
     if (miniTotalElement) {
-      miniTotalElement.textContent = "CHF " + (subtotal + shippingCost).toFixed(2);
+      miniTotalElement.textContent =
+        "CHF " + (subtotal + shippingCost).toFixed(2);
     }
+  }
+
+  // Warenkorb Handy Dialog rendern
+  function renderMobileCart() {
+    const box = document.querySelector("[data-cart-items-mobile]");
+    const sub = document.querySelector("[data-subtotal-mobile]");
+    const tot = document.querySelector("[data-total-mobile]");
+    if (!box || !sub || !tot) return;
+
+    if (cart.length === 0) {
+      box.innerHTML = '<p class="cart__empty">Dein Warenkorb ist leer.</p>';
+      sub.textContent = "CHF 0.00";
+      tot.textContent = "CHF 0.00";
+      return;
+    }
+
+    let html = "";
+    let subtotal = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+      const it = cart[i];
+      const line = it.price * it.qty;
+      subtotal += line;
+
+      html +=
+        "" +
+        '<div class="cart__item">' +
+        "<div>" +
+        it.name +
+        "</div>" +
+        '<div style="text-align:right;">CHF ' +
+        line.toFixed(2) +
+        "</div>" +
+        '<div class="qty">' +
+        '<button class="qty-btn" data-dec="' +
+        it.id +
+        '">−</button>' +
+        "<span>" +
+        it.qty +
+        "</span>" +
+        '<button class="qty-btn" data-inc="' +
+        it.id +
+        '">+</button>' +
+        "</div>" +
+        '<div style="text-align:right;">' +
+        '<button class="qty-del" data-del="' +
+        it.id +
+        '">entfernen</button>' +
+        "</div>" +
+        "</div>";
+    }
+
+    box.innerHTML = html;
+    sub.textContent = "CHF " + subtotal.toFixed(2);
+    tot.textContent = "CHF " + (subtotal + shippingCost).toFixed(2);
   }
 
   // Klick-Events
   document.addEventListener("click", function (event) {
     if (event.target.matches("[data-add]")) {
-      let itemId = event.target.getAttribute("data-add");
-      addToCart(itemId);
+      const idA = event.target.getAttribute("data-add");
+      addToCart(idA);
     }
-
     if (event.target.matches("[data-inc]")) {
-      let itemId = event.target.getAttribute("data-inc");
-      changeQuantity(itemId, +1);
+      const idI = event.target.getAttribute("data-inc");
+      changeQuantity(idI, +1);
     }
-
     if (event.target.matches("[data-dec]")) {
-      let itemId = event.target.getAttribute("data-dec");
-      changeQuantity(itemId, -1);
+      const idD = event.target.getAttribute("data-dec");
+      changeQuantity(idD, -1);
     }
-
     if (event.target.matches("[data-del]")) {
-      let itemId = event.target.getAttribute("data-del");
-      removeFromCart(itemId);
+      const idR = event.target.getAttribute("data-del");
+      removeFromCart(idR);
     }
   });
 
+  // Initial render
   renderCart();
+  renderMobileCart();
 
-  //Mobile Overlay Warenkorb
-  let openCartButton = document.querySelector("[data-open-cart]");
-  let cartDialog = document.querySelector("[data-cart-dialog]");
+  // Mobile Overlay Warenkorb
+  const openCartButton = document.querySelector("[data-open-cart]");
+  const cartDialog = document.querySelector("[data-cart-dialog]");
 
   if (openCartButton && cartDialog) {
     openCartButton.addEventListener("click", function () {
@@ -157,58 +250,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     cartDialog.addEventListener("click", function (event) {
-      if (event.target.tagName === "BUTTON" && event.target.textContent === "✕") {
+      if (
+        event.target.tagName === "BUTTON" &&
+        event.target.textContent === "✕"
+      ) {
         cartDialog.close();
       }
     });
   }
 
-  function renderMobileCart() {
-    let cartItemsBoxMobile = document.querySelector("[data-cart-items-mobile]");
-    let subtotalElementMobile = document.querySelector("[data-subtotal-mobile]");
-    let totalElementMobile = document.querySelector("[data-total-mobile]");
-
-    if (cart.length === 0) {
-      cartItemsBoxMobile.innerHTML = `<p class="cart__empty">Dein Warenkorb ist leer.</p>`;
-      subtotalElementMobile.textContent = "CHF 0.00";
-      totalElementMobile.textContent = "CHF 0.00";
-      return;
-    }
-
-    let html = "";
-    let subtotal = 0;
-
-    cart.forEach(function (cartItem) {
-      let linePrice = cartItem.price * cartItem.qty;
-      subtotal += linePrice;
-      html += `
-        <div class="cart__item">
-          <div>${cartItem.name}</div>
-          <div style="text-align:right;">CHF ${linePrice.toFixed(2)}</div>
-          <div class="qty">
-            <button class="qty-btn" data-dec="${cartItem.id}">−</button>
-            <span>${cartItem.qty}</span>
-            <button class="qty-btn" data-inc="${cartItem.id}">+</button>
-          </div>
-          <div style="text-align:right;">
-            <button class="qty-del" data-del="${cartItem.id}">entfernen</button>
-          </div>
-        </div>
-      `;
-    });
-
-    cartItemsBoxMobile.innerHTML = html;
-    subtotalElementMobile.textContent = "CHF " + subtotal.toFixed(2);
-    totalElementMobile.textContent = "CHF " + (subtotal + shippingCost).toFixed(2);
-  }
-
-  // Bestellen Buttons 
+  // Bestellen Button
   function clearCartAfterOrder(messageElement) {
     cart = [];
     renderCart();
+    renderMobileCart();
     if (messageElement) {
       messageElement.textContent = "Danke für deine Testbestellung!";
-      setTimeout(() => (messageElement.textContent = ""), 3000);
+      setTimeout(function () {
+        messageElement.textContent = "";
+      }, 3000);
     }
   }
 
@@ -221,11 +281,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const checkoutButtonMobile = document.querySelector("[data-checkout-mobile]");
-  const messageElementMobile = document.querySelector("[data-order-message-mobile]");
+  const messageElementMobile = document.querySelector(
+    "[data-order-message-mobile]"
+  );
   if (checkoutButtonMobile) {
     checkoutButtonMobile.addEventListener("click", function () {
       clearCartAfterOrder(messageElementMobile);
-      cartDialog.close();
+      if (cartDialog) cartDialog.close();
     });
   }
 });
