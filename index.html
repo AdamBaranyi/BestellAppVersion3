@@ -4,17 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BestellApp</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/img/logo.png" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  
+<link rel="icon" href="assets/img/logo.png" />
+<link rel="stylesheet" href="styles.css" />
    
 </head>
 <body>
 
-  <!-- Header -->
+
   <header class="header">
     <div class="brand">
       <img src="assets/img/logo.png" alt="BestellApp Logo" class="brand__logo" />
@@ -23,7 +20,7 @@
     <button class="header__burger" aria-label="Menü öffnen">☰</button>
   </header>
 
-  <!-- Hero -->
+ 
   <section class="hero">
     <img src="assets/img/foodbanner.png" alt="Food Banner" class="hero__image" />
     <div class="hero__overlay">
@@ -34,7 +31,7 @@
     </div>
   </section>
 
-  <!-- Kategorien -->
+  
   <nav class="categories">
     <ul>
       <li><a href="#section-salate" class="chip chip--active">Salate</a></li>
@@ -45,7 +42,7 @@
   </nav>
 
   <main class="layout">
-    <!-- Menü -->
+   
     <section class="menu" data-menu>
       <h2 id="section-salate">Salate</h2>
       <div class="menu__grid" data-menu-grid="Salate"></div>
@@ -62,7 +59,7 @@
       <div class="menu__grid" data-menu-grid="Dessert"></div>
     </section>
 
-    <!-- Warenkorb -->
+   
     <aside class="cart" data-cart>
       <h2>Warenkorb</h2>
       <div class="cart__items" data-cart-items>
@@ -79,7 +76,7 @@
     </aside>
   </main>
 
-  <!-- Mobile Warenkorb -->
+  
   <button class="fab" data-open-cart>
     Warenkorb • <span data-total-mini>CHF 0.00</span>
   </button>
@@ -100,12 +97,12 @@
     <p class="cart__notice" data-order-message-mobile></p>
   </dialog>
 
-  <!-- Footer -->
+  
   <footer class="footer">
-    <small>&copy; <span id="year"></span> BestellApp</small>
+    <small>&copy; <span id="year"></span> BestellApp 2025</small>
   </footer>
 
-  <!-- Scripts -->
+ 
   <script src="/data/menu.js" defer></script>
   <script src="script.js" defer></script>
 </body>

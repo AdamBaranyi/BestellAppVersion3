@@ -1,10 +1,10 @@
-//  Warenkorb-Logik //
+//  Warenkorb-Logik 
 document.addEventListener("DOMContentLoaded", function () {
 
-  // Fixe Lieferkosten //
+  // Fixe Lieferkosten 
   let shippingCost = 5.0;
 
-  //  Karten aus menuData rendern  //
+  // Karten aus menuData rendern 
   menuData.forEach(function (menuItem) {
     let cardHTML = `
       <article class="card">
@@ -23,26 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  //  Warenkorb-Daten speichern  //
-  // Array für Warenkorb: [{id, name, price, qty}] //
+  // Warenkorb-Daten 
   let cart = [];
 
-  // Artikel hinzufügen //
+  // Artikel hinzufügen 
   function addToCart(itemId) {
-    // prüfen, ob Artikel schon im Warenkorb existiert //
     let existingCartItem = cart.find(function (cartItem) {
       return cartItem.id === itemId;
     });
 
     if (existingCartItem) {
-      existingCartItem.qty += 1; // Menge erhöhen //
+      existingCartItem.qty += 1;
     } else {
       let menuItem = menuData.find(function (menuItem) {
         return menuItem.id === itemId;
       });
       if (!menuItem) return;
 
-      // Neues Objekt ins cart-Array legen //
       cart.push({ 
         id: menuItem.id, 
         name: menuItem.name, 
@@ -53,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCart();
   }
 
-  // Menge ändern +1 oder -1 //
+  // Menge ändern (+1 oder -1)
   function changeQuantity(itemId, change) {
     let cartItem = cart.find(function (cartItem) {
       return cartItem.id === itemId;
@@ -62,8 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!cartItem) return;
 
     cartItem.qty += change;
-
-    // Wenn Menge kleiner oder gleich 0 → entfernen //
     if (cartItem.qty <= 0) {
       cart = cart.filter(function (cartItem) {
         return cartItem.id !== itemId;
@@ -72,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCart();
   }
 
-  // Artikel komplett entfernen // 
+  // Artikel komplett entfernen 
   function removeFromCart(itemId) {
     cart = cart.filter(function (cartItem) {
       return cartItem.id !== itemId;
@@ -80,12 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCart();
   }
 
-  //  Warenkorb anzeigen  // 
+  // Warenkorb anzeigen
   function renderCart() {
     let cartItemsBox = document.querySelector("[data-cart-items]");
     let subtotalElement = document.querySelector("[data-subtotal]");
     let totalElement = document.querySelector("[data-total]");
-    let miniTotalElement = document.querySelector("[data-total-mini]"); // für mobile Button //
+    let miniTotalElement = document.querySelector("[data-total-mini]");
 
     if (cart.length === 0) {
       cartItemsBox.innerHTML = `<p class="cart__empty">Dein Warenkorb ist leer.</p>`;
@@ -126,33 +121,111 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  //  Klick-Events //
+  // Klick-Events
   document.addEventListener("click", function (event) {
-   
     if (event.target.matches("[data-add]")) {
       let itemId = event.target.getAttribute("data-add");
       addToCart(itemId);
     }
 
-    // Menge erhöhen //
     if (event.target.matches("[data-inc]")) {
       let itemId = event.target.getAttribute("data-inc");
       changeQuantity(itemId, +1);
     }
 
-    // Menge verringern //
     if (event.target.matches("[data-dec]")) {
       let itemId = event.target.getAttribute("data-dec");
       changeQuantity(itemId, -1);
     }
 
-    // Artikel entfernen //
     if (event.target.matches("[data-del]")) {
       let itemId = event.target.getAttribute("data-del");
       removeFromCart(itemId);
     }
   });
 
-  // Warenkorb anzeigen //
   renderCart();
+
+  //Mobile Overlay Warenkorb
+  let openCartButton = document.querySelector("[data-open-cart]");
+  let cartDialog = document.querySelector("[data-cart-dialog]");
+
+  if (openCartButton && cartDialog) {
+    openCartButton.addEventListener("click", function () {
+      cartDialog.showModal();
+      renderMobileCart();
+    });
+
+    cartDialog.addEventListener("click", function (event) {
+      if (event.target.tagName === "BUTTON" && event.target.textContent === "✕") {
+        cartDialog.close();
+      }
+    });
+  }
+
+  function renderMobileCart() {
+    let cartItemsBoxMobile = document.querySelector("[data-cart-items-mobile]");
+    let subtotalElementMobile = document.querySelector("[data-subtotal-mobile]");
+    let totalElementMobile = document.querySelector("[data-total-mobile]");
+
+    if (cart.length === 0) {
+      cartItemsBoxMobile.innerHTML = `<p class="cart__empty">Dein Warenkorb ist leer.</p>`;
+      subtotalElementMobile.textContent = "CHF 0.00";
+      totalElementMobile.textContent = "CHF 0.00";
+      return;
+    }
+
+    let html = "";
+    let subtotal = 0;
+
+    cart.forEach(function (cartItem) {
+      let linePrice = cartItem.price * cartItem.qty;
+      subtotal += linePrice;
+      html += `
+        <div class="cart__item">
+          <div>${cartItem.name}</div>
+          <div style="text-align:right;">CHF ${linePrice.toFixed(2)}</div>
+          <div class="qty">
+            <button class="qty-btn" data-dec="${cartItem.id}">−</button>
+            <span>${cartItem.qty}</span>
+            <button class="qty-btn" data-inc="${cartItem.id}">+</button>
+          </div>
+          <div style="text-align:right;">
+            <button class="qty-del" data-del="${cartItem.id}">entfernen</button>
+          </div>
+        </div>
+      `;
+    });
+
+    cartItemsBoxMobile.innerHTML = html;
+    subtotalElementMobile.textContent = "CHF " + subtotal.toFixed(2);
+    totalElementMobile.textContent = "CHF " + (subtotal + shippingCost).toFixed(2);
+  }
+
+  // Bestellen Buttons 
+  function clearCartAfterOrder(messageElement) {
+    cart = [];
+    renderCart();
+    if (messageElement) {
+      messageElement.textContent = "Danke für deine Testbestellung!";
+      setTimeout(() => (messageElement.textContent = ""), 3000);
+    }
+  }
+
+  const checkoutButton = document.querySelector("[data-checkout]");
+  const messageElement = document.querySelector("[data-order-message]");
+  if (checkoutButton) {
+    checkoutButton.addEventListener("click", function () {
+      clearCartAfterOrder(messageElement);
+    });
+  }
+
+  const checkoutButtonMobile = document.querySelector("[data-checkout-mobile]");
+  const messageElementMobile = document.querySelector("[data-order-message-mobile]");
+  if (checkoutButtonMobile) {
+    checkoutButtonMobile.addEventListener("click", function () {
+      clearCartAfterOrder(messageElementMobile);
+      cartDialog.close();
+    });
+  }
 });

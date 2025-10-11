@@ -1,8 +1,4 @@
 
-
-
-
-
 const menuData = [
   {
     "id": "s1",
