@@ -1,4 +1,4 @@
-📝 Projektbeschreibung – BestellApp (Lieferando-Klon) Version 3
+📝 Projektbeschreibung – Das ist mein Version 3 BestellApp (Lieferando-Klon) Repo Modul 7 Abschluss
 
 Ich habe in diesem Projekt eine kleine Bestell-Webseite erstellt, die an Lieferando erinnert.
 Das Ziel war, die wichtigsten HTML-, CSS- und JavaScript-Grundlagen zu üben und ein eigenes, funktionierendes System zu bauen, bei dem man Gerichte auswählen und in einen Warenkorb legen kann.
