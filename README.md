@@ -21,5 +21,4 @@ und wie man einen Warenkorb erstellt, in dem man Produkte hinzufügen, Mengen ä
 Ich habe außerdem ein mobiles Overlay (Dialogfenster) gebaut, das auf dem Handy erscheint, wenn man auf den orangen Warenkorb-Button klickt.
 Beim Klick auf „Bestellen“ wird der Warenkorb geleert und eine Testmeldung angezeigt.
 
-Das Projekt hat mir geholfen, den Umgang mit DOM-Elementen, Events, Funktionen und Arrays besser zu verstehen.
-Ich habe alle Anforderungen der Checkliste umgesetzt: Git-Workflow, responsive Design, funktionaler Warenkorb und saubere Code-Struktur.
+
