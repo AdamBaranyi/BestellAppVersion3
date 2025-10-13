@@ -7,7 +7,7 @@ Zuerst habe ich die HTML-Struktur aufgebaut mit einem Header, einem Hero-Bereich
 Alle Inhalte sind übersichtlich in <section>-, <div>- und <article>-Elemente aufgeteilt.
 
 Im CSS habe ich das Design mit festen Farben, runden Ecken und einem modernen Layout gestaltet.
-Ich habe dabei nur Pixel-Werte benutzt und das Layout mit CSS Grid und Media Queries so angepasst, dass die Seite bis 320 px Breite responsive bleibt.
+Ich habe dabei  das Layout mit CSS Grid und Media Queries so angepasst, dass die Seite bis 320 px Breite responsive bleibt.
 Das Design ist einfach, aber klar und orientiert sich an typischen Lieferplattformen.
 
 Mit JavaScript habe ich gelernt, wie man:
