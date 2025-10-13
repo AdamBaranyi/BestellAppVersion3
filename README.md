@@ -4,7 +4,7 @@ Ich habe in diesem Projekt eine kleine Bestell-Webseite erstellt, die an Liefera
 Das Ziel war, die wichtigsten HTML-, CSS- und JavaScript-Grundlagen zu üben und ein eigenes, funktionierendes System zu bauen, bei dem man Gerichte auswählen und in einen Warenkorb legen kann.
 
 Zuerst habe ich die HTML-Struktur aufgebaut mit einem Header, einem Hero-Bereich mit Bannerbild, mehreren Menükategorien (Salate, Suppen, Pizza, Dessert) und einem Warenkorb auf der rechten Seite.
-Alle Inhalte sind übersichtlich in <section>-, <div>- und <article>-Elemente aufgeteilt.
+Alle Inhalte sind übersichtlich in  Elemente aufgeteilt.
 
 Im CSS habe ich das Design mit festen Farben, runden Ecken und einem modernen Layout gestaltet.
 Ich habe dabei  das Layout mit CSS Grid und Media Queries so angepasst, dass die Seite bis 320 px Breite responsive bleibt.
