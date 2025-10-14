@@ -1,4 +1,4 @@
-/* Global Styles */
+/* Global */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,6 +15,7 @@ body {
   background-color: #f2cdaf;
   color: #333;
   line-height: 1.4;
+  font-size: 16px;
 }
 img {
   max-width: 100%;
@@ -24,16 +25,12 @@ img {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-/* Container */
+} /* Container */
 .container {
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: 16px;
-}
-
-/* Header */
+} /* Header */
 .header {
   background-color: #f07a23;
   color: #fff;
@@ -60,24 +57,19 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 180px;
-}
-
-
-/* HERO */
+} /* Hero */
 .hero {
-  margin-inline: calc(50% - 50vw); /* full-bleed */
+  margin-inline: calc(50% - 50vw);
   width: 100vw;
   margin-top: 16px;
 }
 .hero__image {
   width: 100%;
   border-radius: 10px;
-  height: clamp(260px, 40vh, 360px);
+  height: 360px;
   object-fit: cover;
   object-position: center;
 }
-
-/*  Badge */
 .hero__overlay {
   margin-top: 8px;
 }
@@ -85,27 +77,26 @@ a {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-}
+} /* Badge */
 .hero__badge {
-  
-  width: 84px;            
-  height: 84px;
-  padding: 6px;           
-  overflow: hidden;       
+  width: clamp(72px, 8vw, 120px);
+  height: clamp(72px, 8vw, 120px);
+  aspect-ratio: 1/1;
+  padding: clamp(4px, 0.6vw, 8px);
+  overflow: hidden;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
 }
-.hero__badge img{
+.hero__badge img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.6);   
-  transform-origin: center;
   border-radius: 50%;
-}                                                                              
+}
 .hero__meta {
   min-width: 0;
 }
@@ -116,16 +107,14 @@ a {
 }
 .hero__rating,
 .hero__info {
-  font-size: 13px;
+  font-size: 16px;
   color: #666;
 }
 .hero__desc {
   font-size: 18px;
   font-weight: bold;
   margin-top: 6px;
-}
-
-/* Kategorien  */
+} /* Kategorien */
 .categories {
   max-width: 1200px;
   margin: 24px auto 0;
@@ -144,13 +133,11 @@ a {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 18px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .categories .chip--active {
   border: 2px solid #f07a23;
-}
-
-/* Haupt-Layout */
+} /* Layout */
 .layout {
   max-width: 1200px;
   margin: 16px auto 20px;
@@ -158,9 +145,7 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-}
-
-/* Menü */
+} /* Menü */
 .menu h2 {
   font-size: 18px;
   margin: 12px 0 8px;
@@ -183,7 +168,7 @@ a {
   overflow-wrap: anywhere;
 }
 .card p {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
   word-wrap: break-word;
   overflow-wrap: anywhere;
@@ -206,36 +191,29 @@ a {
   border-radius: 6px;
   cursor: pointer;
   flex: 0 0 auto;
-}
-
-/* Warenkorb (Desktop) */
+} /* Warenkorb (Basis) */
 .cart {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 14px;
-  align-self: start;
 }
 .cart-inner {
-  position: sticky;
-  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .cart h2 {
   font-size: 18px;
-  margin-bottom: 8px;
 }
 .cart__items {
-  font-size: 14px;
-  margin-bottom: 10px;
-  max-height: 380px;
-  overflow-y: auto;
+  font-size: 16px;
 }
 .cart__empty {
   color: #666;
 }
 .cart__summary {
-  font-size: 14px;
-  margin-bottom: 10px;
+  font-size: 16px;
 }
 .row {
   display: flex;
@@ -257,8 +235,9 @@ a {
   border-radius: 6px;
   cursor: pointer;
 }
-
-/* Warenkorb-Artikel */
+.cart__notice {
+  min-height: 22px;
+} /* Warenkorb-Artikel */
 .cart__item {
   display: grid;
   grid-template-columns: 1fr 90px;
@@ -284,16 +263,14 @@ a {
   cursor: pointer;
 }
 .qty-del {
-  font-size: 12px;
+  font-size: 16px;
   color: #c00;
   background: #fff;
   border: 1px solid #f0caca;
   padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
-}
-
-/* FAB Handy */
+} /* FAB Handy */
 .fab {
   display: none;
   position: fixed;
@@ -307,10 +284,8 @@ a {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  z-index: 40;
-}
-
-/* Dialog */
+  z-index: 120;
+} /* Dialog */
 .cart-dialog {
   border: none;
   border-radius: 10px;
@@ -330,9 +305,7 @@ a {
 .cart-dialog h3 {
   font-size: 18px;
   margin: 0;
-}
-
-/* Footer */
+} /* Footer */
 .footer {
   background-color: #f07a23;
   color: #fff;
@@ -341,6 +314,8 @@ a {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   margin-top: 40px;
+  position: relative;
+  z-index: 200;
 }
 .footer small {
   display: block;
@@ -348,13 +323,10 @@ a {
   margin-bottom: 6px;
 }
 .footer p {
-  font-size: 12px;
+  font-size: 16px;
   color: #ffe8d0;
   font-weight: bold;
-}
-
-/* Breakpoints */
-/* ab 480px  */
+} /* MEDIA QUERIES */ /* ≥ 480px */
 @media (min-width: 480px) {
   .menu__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -363,27 +335,34 @@ a {
   .brand__name {
     max-width: 220px;
   }
-}
-/* ab 700px →  */
+} /* ≥ 700px */
 @media (min-width: 700px) {
   .layout {
     grid-template-columns: 1fr 300px;
-    gap: 18px;
+    gap: 24px;
+    align-items: start;
+    overflow: visible;
   }
   .cart {
-    display: block;
+    position: sticky;
+    top: 24px;
+    margin-top: 0;
+    max-height: none;
+    overflow: visible;
+  }
+  .cart-inner {
+    position: static;
+    overflow: visible;
   }
   .fab {
     display: none;
   }
-}
-/* ab 1000px – (weiterhin 2 Spalten Menü, wie im Screenshot gewünscht) */
+} /* ≥ 1000px */
 @media (min-width: 1000px) {
   .menu__grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-/* ab 1400px – optional 3 Spalten Menü */
+} /* ≥ 1400px */
 @media (min-width: 1400px) {
   .layout {
     max-width: 1400px;
@@ -391,10 +370,7 @@ a {
   .menu__grid {
     grid-template-columns: repeat(3, 1fr);
   }
-}
-
-/* Resp Handy */
-
+} /* ≤ 699px – Mobil (Dialog) */
 @media (max-width: 699px) {
   .fab {
     display: block;
@@ -405,19 +381,52 @@ a {
   .cart-inner {
     position: static;
   }
-}
-/* max 480px */
+  main {
+    padding-bottom: 72px;
+  } /* Platz für FAB */
+  .cart-dialog[open][data-fullscreen="true"] {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    z-index: 100;
+  }
+  .cart-dialog[open][data-fullscreen="true"] form {
+    padding: 12px 14px;
+    background: #f07a23;
+    color: #fff;
+  }
+  .cart-dialog[open][data-fullscreen="true"] .cart__items {
+    max-height: none;
+    padding: 12px;
+  }
+  .cart-dialog[open][data-fullscreen="true"] .cart__summary {
+    padding: 0 12px 12px;
+  }
+  .cart-dialog[open][data-fullscreen="true"] .btn {
+    margin: 0 12px 12px;
+  }
+  .cart-dialog[open][data-fullscreen="true"] .cart__notice {
+    margin: 0 12px 12px;
+  }
+} /* ≤ 480px */
 @media (max-width: 480px) {
   .footer {
     padding: 14px 8px;
   }
   .footer small {
-    font-size: 13px;
+    font-size: 16px;
   }
-  .hero__badge{ width: 72px; height: 72px; }
-  .hero__badge img{ transform: scale(1.25); }
-}
-/* max 360px */
+  .hero__badge {
+    width: 120px;
+    height: 120px;
+    padding: 8px;
+  }
+} /* ≤ 360px */
 @media (max-width: 360px) {
   .header {
     padding: 10px 12px;
@@ -433,17 +442,17 @@ a {
     padding: 0 10px;
   }
   .categories a {
-    font-size: 12px;
+    font-size: 16px;
     padding: 5px 10px;
   }
   .menu h2 {
-    font-size: 17px;
+    font-size: 16px;
   }
   .card h3 {
-    font-size: 15px;
+    font-size: 16px;
   }
   .card p {
-    font-size: 13px;
+    font-size: 16px;
   }
   .plus-btn {
     width: 32px;
@@ -456,10 +465,13 @@ a {
     padding: 12px 6px;
   }
   .footer small {
-    font-size: 12px;
+    font-size: 16px;
   }
-}
-/* max 320px */
+  .hero__badge {
+    width: 132px;
+    height: 132px;
+  }
+} /* ≤ 320px */
 @media (max-width: 320px) {
   .brand__name {
     max-width: 130px;
@@ -485,6 +497,20 @@ a {
     padding: 10px 5px;
   }
   .footer small {
-    font-size: 11px;
+    font-size: 16px;
+  }
+  .hero__badge {
+    width: 140px;
+    height: 140px;
+  }
+}
+@media (min-width: 700px) {
+  html,
+  body,
+  main,
+  .layout {
+    transform: none !important;
+    filter: none !important;
+    overflow: visible !important;
   }
 }
