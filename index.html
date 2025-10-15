@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BestellApp</title>
+
     <link rel="icon" href="assets/img/logo.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css." />
   </head>
   <body onload="init()">
     <header class="header">
@@ -18,16 +19,19 @@
         <span class="brand__name">BestellApp</span>
       </div>
     </header>
+
     <section class="hero">
       <img
         src="assets/img/foodbanner.png"
         alt="Food Banner"
         class="hero__image"
       />
+
       <div class="container hero__overlay hero__row">
         <div class="hero__badge">
           <img src="assets/img/seven_logo.png" alt="Seven7 Logo" />
         </div>
+
         <div class="hero__meta">
           <h1 class="hero__title">The Seven7</h1>
           <p class="hero__rating">★ ★ ★ ★ ☆ (4.2 von 5)</p>
@@ -38,6 +42,7 @@
         </div>
       </div>
     </section>
+
     <nav class="categories">
       <ul>
         <li><a href="#section-salate" class="chip chip--active">Salate</a></li>
@@ -46,17 +51,22 @@
         <li><a href="#section-dessert" class="chip">Dessert</a></li>
       </ul>
     </nav>
+
     <main class="layout">
       <section class="menu" data-menu>
         <h2 id="section-salate">Salate</h2>
         <div class="menu__grid" data-menu-grid="Salate"></div>
+
         <h2 id="section-suppe">Suppe</h2>
         <div class="menu__grid" data-menu-grid="Suppe"></div>
+
         <h2 id="section-pizza">Pizza</h2>
         <div class="menu__grid" data-menu-grid="Pizza"></div>
+
         <h2 id="section-dessert">Dessert</h2>
         <div class="menu__grid" data-menu-grid="Dessert"></div>
       </section>
+
       <aside class="cart" data-cart>
         <div class="cart-inner">
           <h2>Warenkorb</h2>
@@ -65,14 +75,17 @@
           </div>
           <div class="cart__summary">
             <div class="row">
-              <span>Zwischensumme</span> <strong data-subtotal>CHF 0.00</strong>
+              <span>Zwischensumme</span>
+              <strong data-subtotal>CHF 0.00</strong>
             </div>
             <div class="row">
-              <span>Lieferkosten</span> <strong data-shipping>CHF 5.00</strong>
+              <span>Lieferkosten</span>
+              <strong data-shipping>CHF 5.00</strong>
             </div>
             <hr />
             <div class="row row--lg">
-              <span>Gesamt</span> <strong data-total>CHF 0.00</strong>
+              <span>Gesamt</span>
+              <strong data-total>CHF 0.00</strong>
             </div>
           </div>
           <button class="btn" data-checkout disabled>Zur Kasse</button>
@@ -80,9 +93,11 @@
         </div>
       </aside>
     </main>
+
     <button class="fab" data-open-cart>
       Warenkorb • <span data-total-mini>CHF 0.00</span>
     </button>
+
     <!-- Mobiler Warenkorb -->
     <dialog class="cart-dialog" data-cart-dialog data-fullscreen="true">
       <form method="dialog">
@@ -101,15 +116,18 @@
         </div>
         <hr />
         <div class="row row--lg">
-          <span>Gesamt</span> <strong data-total-mobile>CHF 0.00</strong>
+          <span>Gesamt</span>
+          <strong data-total-mobile>CHF 0.00</strong>
         </div>
       </div>
       <button class="btn" data-checkout-mobile disabled>Bestellen</button>
       <p class="cart__notice" data-order-message-mobile></p>
     </dialog>
+
     <footer class="footer">
       <small>&copy; <span id="year"></span> BestellApp 2025</small>
     </footer>
+
     <script src="/data/menu.js" defer></script>
     <script src="script.js" defer></script>
   </body>
