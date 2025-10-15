@@ -6,6 +6,7 @@ let cart = [];
 function saveCart() {
   try { localStorage.setItem("cart", JSON.stringify(cart)); } catch (e) {}
 };
+
 function loadCart() {
   try {
     const raw = localStorage.getItem("cart");
@@ -31,6 +32,7 @@ function menuCardHTML(m) {
     '</div>' +
     '</article>';
 };
+
 function renderMenu() {
   for (let i = 0; i < menuData.length; i++) {
     const m = menuData[i];
@@ -49,11 +51,13 @@ function addToCart(id) {
   }
   saveCart(); renderAll();
 };
+
 function changeQuantity(id, step) {
   let f = byId(cart, id); if (!f) return;
   f.qty += step; if (f.qty <= 0) cart = cart.filter(x => x.id !== id);
   saveCart(); renderAll();
 };
+
 function removeFromCart(id) {
   cart = cart.filter(x => x.id !== id);
   saveCart(); renderAll();
@@ -68,11 +72,13 @@ function renderEmpty(cfg) {
   if (cfg.msg) qs(cfg.msg).textContent = "";
   setCheckoutDisabled(true);
 };
+
 function setCheckoutDisabled(disabled) {
   const d = qs("[data-checkout]");
   const m = qs("[data-checkout-mobile]");
   if (d) d.disabled = disabled; if (m) m.disabled = disabled;
 };
+
 function cartItemsHTML() {
   return cart.map(i => {
     const line = money(i.price * i.qty);
@@ -89,18 +95,21 @@ function cartItemsHTML() {
       '</div>';
   }).join("");
 };
+
 function updateTotals(cfg, sub) {
   qs(cfg.sub).textContent = money(sub);
   qs(cfg.tot).textContent = money(sub + shippingCost);
   if (cfg.mini) qs(cfg.mini).textContent = money(sub + shippingCost);
   setCheckoutDisabled(false);
 };
+
 function renderCart(cfg) {
   const box = qs(cfg.items); if (!box) return;
   if (cart.length === 0) return renderEmpty(cfg);
   box.innerHTML = cartItemsHTML();
   updateTotals(cfg, subtotal());
 };
+
 function renderAll() {
   renderCart({
     items: "[data-cart-items]",
@@ -117,16 +126,19 @@ function renderAll() {
     msg: "[data-order-message-mobile]"
   });
 };
+
 function checkout(messageSelector) {
   if (!cart.length) return;
   cart = []; saveCart(); renderAll();
   const el = qs(messageSelector);
   if (el) { el.textContent = "Danke für deine Testbestellung!"; setTimeout(() => el.textContent = "", 3000); }
 };
+
 function toggleDialog(open) {
   const dialog = qs("[data-cart-dialog]"); if (!dialog) return;
   if (open && typeof dialog.showModal === "function") dialog.showModal(); else dialog.close();
 };
+
 function handleClick(e) {
   const t = e.target;
   if (t.matches("[data-add]")) addToCart(t.getAttribute("data-add"));
@@ -138,6 +150,7 @@ function handleClick(e) {
   if (t.matches("[data-open-cart]")) { toggleDialog(true); renderAll(); }
   if (t.tagName === "BUTTON" && (t.textContent === "✕" || t.getAttribute("aria-label") === "Schließen")) toggleDialog(false);
 };
+
 function attachEvents() {
   document.addEventListener("click", handleClick);
   const dialog = qs("[data-cart-dialog]");
@@ -148,4 +161,5 @@ function attachEvents() {
   });
   const y = qs("#year"); if (y) y.textContent = new Date().getFullYear();
 };
+
 function init() { loadCart(); renderMenu(); renderAll(); attachEvents(); };
